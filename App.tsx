@@ -291,8 +291,11 @@ const ImageCropper = ({ src, onConfirm, onCancel }: { src: string, onConfirm: (b
         </div>
       </div>
 
-      <div className="p-6 bg-zinc-900 border-t border-white/10 pb-safe-area-bottom">
-        <Button onClick={performCrop} className="w-full">
+      <div className="p-6 bg-zinc-900 border-t border-white/10 pb-safe-area-bottom flex flex-col md:flex-row gap-3">
+        <Button onClick={() => onConfirm(src)} variant="secondary" className="w-full md:w-auto flex-1">
+           Use Original (No Crop)
+        </Button>
+        <Button onClick={performCrop} className="w-full md:w-auto flex-[2]">
            <CheckCircle className="w-4 h-4 mr-2"/> Confirm Crop
         </Button>
       </div>
@@ -717,6 +720,7 @@ const StepDesign = ({ data, updateData }: any) => {
       const r = new FileReader();
       r.onload = () => setTempImage(r.result as string);
       r.readAsDataURL(e.target.files[0]);
+      e.target.value = ''; // Reset input to allow re-selection of the same file
     }
   };
 
@@ -902,6 +906,7 @@ const StepSimulation = ({ data, updateData }: any) => {
       const r = new FileReader();
       r.onload = () => setTempImage(r.result as string);
       r.readAsDataURL(e.target.files[0]);
+      e.target.value = ''; // Reset input to allow re-selection of the same file
     }
   };
 
