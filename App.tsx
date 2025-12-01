@@ -679,13 +679,13 @@ const StepDesign = ({ data, updateData }: any) => {
   const [tempImage, setTempImage] = useState<string | null>(null);
 
   const TATTOO_STYLES = [
-    { id: 'realism', name: 'Realism', img: 'https://images.unsplash.com/photo-1590246295702-f940809228eb?w=150&q=80' },
-    { id: 'traditional', name: 'Traditional', img: 'https://images.unsplash.com/photo-1562962230-16e4623d36e6?w=150&q=80' },
-    { id: 'minimalist', name: 'Minimalist', img: 'https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?w=150&q=80' },
-    { id: 'geometric', name: 'Geometric', img: 'https://images.unsplash.com/photo-1621112904887-419379ce6824?w=150&q=80' },
-    { id: 'watercolor', name: 'Watercolor', img: 'https://images.unsplash.com/photo-1618331835717-801e976710b2?w=150&q=80' },
-    { id: 'lettering', name: 'Lettering', img: 'https://images.unsplash.com/photo-1595967735343-4cb50325b349?w=150&q=80' },
-    { id: 'blackwork', name: 'Blackwork', img: 'https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?w=150&q=80' },
+    { id: 'realism', name: 'Realism', img: 'https://images.unsplash.com/photo-1590246295702-f940809228eb?auto=format&fit=crop&w=150&q=80' },
+    { id: 'traditional', name: 'Traditional', img: 'https://images.unsplash.com/photo-1562962230-16e4623d36e6?auto=format&fit=crop&w=150&q=80' },
+    { id: 'minimalist', name: 'Minimalist', img: 'https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?auto=format&fit=crop&w=150&q=80' },
+    { id: 'geometric', name: 'Geometric', img: 'https://images.unsplash.com/photo-1621112904887-419379ce6824?auto=format&fit=crop&w=150&q=80' },
+    { id: 'watercolor', name: 'Watercolor', img: 'https://images.unsplash.com/photo-1545231027-637d2f6210f8?auto=format&fit=crop&w=150&q=80' },
+    { id: 'lettering', name: 'Lettering', img: 'https://images.unsplash.com/photo-1595967735343-4cb50325b349?auto=format&fit=crop&w=150&q=80' },
+    { id: 'blackwork', name: 'Blackwork', img: 'https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?auto=format&fit=crop&w=150&q=80' },
   ];
 
   const handleGenerate = async () => {
@@ -794,17 +794,21 @@ const StepDesign = ({ data, updateData }: any) => {
                 {/* Style Selector Strip */}
                 <div>
                   <label className="text-sm font-medium text-zinc-400 ml-1 mb-3 block">Art Style</label>
-                  <div className="flex gap-3 overflow-x-auto pb-4 no-scrollbar -mx-6 px-6 snap-x md:mx-0 md:px-0">
+                  <div className="flex gap-4 overflow-x-auto pb-2 no-scrollbar -mx-6 px-6 snap-x md:mx-0 md:px-0">
                      {TATTOO_STYLES.map(s => (
                        <button 
                           key={s.id} 
                           onClick={() => updateData({ style: s.id })}
-                          className={`snap-start relative w-20 h-20 md:w-24 md:h-24 flex-shrink-0 rounded-2xl overflow-hidden transition-all duration-300 group ${data.style === s.id ? 'ring-2 ring-primary ring-offset-2 ring-offset-black scale-105' : 'opacity-70 hover:opacity-100'}`}
+                          className="snap-start flex flex-col items-center gap-2 group flex-shrink-0"
                        >
-                         <img src={s.img} className="w-full h-full object-cover transition-transform group-hover:scale-110" loading="lazy" />
-                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end justify-center pb-2">
-                           <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider text-white shadow-black drop-shadow-md">{s.name}</span>
+                         <div className={`relative w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden transition-all duration-300 ${data.style === s.id ? 'ring-2 ring-primary ring-offset-2 ring-offset-black scale-105 shadow-xl shadow-black/50' : 'opacity-80 group-hover:opacity-100'}`}>
+                           <img src={s.img} className="w-full h-full object-cover transition-transform group-hover:scale-110" loading="lazy" />
+                           {/* Highlight overlay for active state */}
+                           {data.style === s.id && <div className="absolute inset-0 bg-primary/10 mix-blend-overlay"/>}
                          </div>
+                         <span className={`text-[10px] md:text-xs font-bold uppercase tracking-wider ${data.style === s.id ? 'text-primary' : 'text-zinc-500 group-hover:text-zinc-300'}`}>
+                           {s.name}
+                         </span>
                        </button>
                      ))}
                   </div>
